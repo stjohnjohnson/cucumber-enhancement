@@ -1,0 +1,37 @@
+{
+  "name": "cucumber-rest",
+  "version": "1.0.0",
+  "description": "Node.JS Library for testing with ReST APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "jenkins-mocha tests/**",
+    "functional": "cucumber.js --require lib/* --require features/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stjohnjohnson/cucumber-rest.git"
+  },
+  "keywords": [
+    "cucumber",
+    "rest",
+    "request"
+  ],
+  "author": "St. John Johnson <st.john.johnson@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stjohnjohnson/cucumber-rest/issues"
+  },
+  "homepage": "https://github.com/stjohnjohnson/cucumber-rest",
+  "dependencies": {
+    "hoek": "^2.11.0",
+    "joi": "^5.1.0",
+    "request": "^2.51.0"
+  },
+  "devDependencies": {
+    "cucumber": "^0.4.7",
+    "chai": "^1.10.0",
+    "jenkins-mocha": "^1.0.9",
+    "mockery": "^1.4.0",
+    "sinon": "^1.12.2"
+  }
+}
