@@ -1,7 +1,7 @@
 {
-  "name": "cucumber-rest",
+  "name": "cucumber-enhancement",
   "version": "1.0.0",
-  "description": "Node.JS Library for testing with ReST APIs",
+  "description": "Enhances cucumber.js to make it easier to interact between steps",
   "main": "index.js",
   "scripts": {
     "test": "jenkins-mocha tests/**",
@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/stjohnjohnson/cucumber-rest.git"
+    "url": "https://github.com/stjohnjohnson/cucumber-enhancement.git"
   },
   "keywords": [
     "cucumber",
-    "rest",
+    "enhancement",
     "request"
   ],
   "author": "St. John Johnson <st.john.johnson@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stjohnjohnson/cucumber-rest/issues"
+    "url": "https://github.com/stjohnjohnson/cucumber-enhancement/issues"
   },
-  "homepage": "https://github.com/stjohnjohnson/cucumber-rest",
+  "homepage": "https://github.com/stjohnjohnson/cucumber-enhancement",
   "dependencies": {
     "hoek": "^2.11.0",
     "joi": "^5.1.0",

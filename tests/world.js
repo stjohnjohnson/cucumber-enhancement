@@ -16,7 +16,7 @@ describe('world request test case', function () {
         world = {};
         requestMock = sinon.stub().yieldsAsync();
         mockery.registerMock('request', requestMock);
-        require('../lib/world').call(world);
+        require('../').call(world);
     });
 
     afterEach(function () {
@@ -101,8 +101,4 @@ describe('world request test case', function () {
             });
         });
     });
-
-    // describe('defineStepWithRequirements', function () {
-    //     it('should')
-    // });
 });
