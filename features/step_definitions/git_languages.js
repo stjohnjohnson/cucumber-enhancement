@@ -1,38 +1,38 @@
-var expect = require('chai').expect;
+'use strict';
 
-module.exports = function () {
+const { defineSupportCode } = require('cucumber');
+const expect = require('chai').expect;
 
-    this.When(/^I list the languages$/, {
-        api: this.joi.string(),
-        token: this.joi.string(),
-        owner: this.joi.string(),
-        repo: this.joi.string()
-    }, function (data, callback) {
-        this.request({
+defineSupportCode(({ When, Then }) => {
+    When(/^I list the languages$/, function (callback) {
+        const world = this;
+        const data = world.getAttributes({
+            request: world.joi.func(),
+            api: world.joi.string(),
+            owner: world.joi.string(),
+            repo: world.joi.string()
+        });
+
+        data.request({
             method: 'GET',
-            uri: [
-                data.api, 'repos', data.owner, data.repo, 'languages'
-            ].join('/'),
-            qs: {
-                access_token: data.token
-            }
-        }, function (err, message, response) {
+            uri: `${data.api}/repos/${data.owner}/${data.repo}/languages`
+        }, (err, message, response) => {
             if (err) {
-                throw err;
+                return callback(err);
             }
 
-            callback(null, {
-                'languages': Object.keys(response)
-            });
+            world.setAttribute('languages', Object.keys(response));
+
+            return callback();
         });
     });
 
-    this.Then(/^I should see "([^"]*)" as one of the languages$/, {
-        languages: this.joi.array()
-    }, function (data, language, callback) {
+    Then(/^I should see "([^"]*)" as one of the languages$/, function (language) {
+        const world = this;
+        const data = world.getAttributes({
+            languages: world.joi.array()
+        });
+
         expect(data.languages).to.contain(language);
-
-        setImmediate(callback);
     });
-
-};
+});

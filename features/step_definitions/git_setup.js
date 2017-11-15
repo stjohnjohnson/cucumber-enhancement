@@ -1,12 +1,15 @@
-module.exports = function () {
+'use strict';
 
-    this.Given(/^I am on the "([^/"]*)\/([^"]*)" repository on GitHub$/, function (owner, repo, callback) {
-        callback(null, {
-            owner: owner,
-            repo: repo,
-            api: 'https://api.github.com',
-            token: process.env.ACCESS_TOKEN
+const { defineSupportCode } = require('cucumber');
+
+defineSupportCode(({ Given }) => {
+    Given(/^I am on the "([^/"]*)\/([^"]*)" repository on GitHub$/, function (owner, repo) {
+        const world = this;
+
+        world.setAttributes({
+            owner,
+            repo,
+            api: 'https://api.github.com'
         });
     });
-
-};
+});

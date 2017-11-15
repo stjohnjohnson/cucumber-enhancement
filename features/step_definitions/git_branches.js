@@ -1,40 +1,38 @@
-var expect = require('chai').expect;
+'use strict';
 
-module.exports = function () {
+const { defineSupportCode } = require('cucumber');
+const expect = require('chai').expect;
 
-    this.When(/^I list the branches$/, {
-        api: this.joi.string(),
-        token: this.joi.string(),
-        owner: this.joi.string(),
-        repo: this.joi.string()
-    }, function (data, callback) {
-        this.request({
+defineSupportCode(({ When, Then }) => {
+    When(/^I list the branches$/, function (callback) {
+        const world = this;
+        const data = world.getAttributes({
+            request: world.joi.func(),
+            api: world.joi.string(),
+            owner: world.joi.string(),
+            repo: world.joi.string()
+        });
+
+        data.request({
             method: 'GET',
-            uri: [
-                data.api, 'repos', data.owner, data.repo, 'branches'
-            ].join('/'),
-            qs: {
-                access_token: data.token
-            }
-        }, function (err, message, response) {
+            uri: `${data.api}/repos/${data.owner}/${data.repo}/branches`
+        }, (err, message, response) => {
             if (err) {
-                throw err;
+                return callback(err);
             }
 
-            callback(null, {
-                branches: response.map(function (obj) {
-                    return obj.name;
-                })
-            });
+            world.setAttribute('branches', response.map(obj => obj.name));
+
+            return callback();
         });
     });
 
-    this.Then(/^I should see "([^"]*)" as one of the branches$/, {
-        branches: this.joi.array()
-    }, function (data, branch, callback) {
+    Then(/^I should see "([^"]*)" as one of the branches$/, function (branch) {
+        const world = this;
+        const data = world.getAttributes({
+            branches: world.joi.array()
+        });
+
         expect(data.branches).to.contain(branch);
-
-        setImmediate(callback);
     });
-
-};
+});
